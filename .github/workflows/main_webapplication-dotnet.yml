@@ -21,12 +21,12 @@ jobs:
           include-prerelease: true
 
       - name: Restore dependencies
-        run: dotnet restore path/to/YourProjectOrSolutionFile.csproj
-        working-directory: path/to/your/project
+        run: dotnet restore
+        working-directory: .
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release path/to/YourProjectOrSolutionFile.csproj
-        working-directory: path/to/your/project
+        run: dotnet build --configuration Release
+        working-directory: .
 
   deploy:
     runs-on: ubuntu-latest
