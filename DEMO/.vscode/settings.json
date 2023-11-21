@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/4896349b-a2df-4fe3-89d6-a439056d2939/resourceGroups/appservice1/providers/Microsoft.Web/sites/demo-application1",
+    "appService.deploySubpath": "bin\\Debug\\net8.0"
+}
