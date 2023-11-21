@@ -36,6 +36,11 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_765982955AD64442ADCE11D82C6D385E }}
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -49,5 +54,5 @@ jobs:
 
       - name: Debug Information
         run: |
-          echo "AZURE_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISH_PROFILE }}"
+          echo "AZURE_PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_765982955AD64442ADCE11D82C6D385E }}"
           echo "Web App URL: ${{ steps.deploy-to-webapp.outputs.webapp-url }}"
