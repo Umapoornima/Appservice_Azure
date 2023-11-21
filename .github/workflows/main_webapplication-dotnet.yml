@@ -22,11 +22,11 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
-        working-directory: .
+        working-directory: ./DEMO
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-        working-directory: .
+        working-directory: ./DEMO
 
   deploy:
     runs-on: ubuntu-latest
