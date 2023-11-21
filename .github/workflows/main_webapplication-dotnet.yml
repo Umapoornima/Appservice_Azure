@@ -20,6 +20,14 @@ jobs:
           dotnet-version: '8.x'
           include-prerelease: true
 
+      - name: Check Azure CLI version
+        run: az --version
+
+      - name: Install Azure CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y azure-cli
+
       - name: Restore dependencies
         run: dotnet restore
         working-directory: ./DEMO
@@ -39,11 +47,17 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_765982955AD64442ADCE11D82C6D385E }}
+          creds: ${{ secrets.AZURE_CLIENT_ID }} ${{ secrets.AZURE_CLIENT_SECRET }} ${{ secrets.AZURE_TENANT_ID }}
+          enable-AzPSSession: false
+          environment: azurecloud
+          allow-no-subscriptions: false
+          audience: api://AzureADTokenExchange
 
-      # Remove potentially redundant checkout step
-      # - name: Checkout repository
-      #   uses: actions/checkout@v4
+      - name: Debug Azure Login
+        run: az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
